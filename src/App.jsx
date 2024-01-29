@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
-import axios from 'axios'
+//import axios from 'axios'
 import Icons from './components/Icons.jsx'
 
 function App() {
- const [search, setSearch] = useState('search')
+ const [search, setSearch] = useState('')
  const [ values, setValues] = useState('')
  const [ icon, setIcon] = useState('')
  
@@ -13,28 +13,26 @@ function App() {
   //  const data = await axios.get(URL)
   const getData = async () => {
     await fetch(URL)
-    .then(response => {return response.json()})
-    .then(data => {
-   if(data.cod >= 400) {
-    setValues(false)
-   }
-   else{
-    console.log(data);
-    setValues(data)
-    setIcon(data.weather[0].main) // will show icon according to weather
-   }
-  })
-  .catch(error => {
-    console.log(error)
-  })
-
-  const handleSearch = (e) =>{
-    console.log(e.target.values)
-    setSearch(e.target.values)
+      .then(response => {return response.json()})
+      .then(data => {
+        if(data.cod >=400) {
+          setValues(false)
+        }else{
+          console.log(data.weather[0].main)
+          setValues(data)
+        }
+      })
+    }
+  const handleSearch = (e) =>{     // variable handleSearch will display the output of input instanly in devstool
+    if(e.key ==='Enter') {
+      console.log(e.target.value)
+      setSearch(e.target.values)
+    }
+   
   }
   useEffect(() => {
    getData() 
-  },[search]);
+  },[search]) 
       return (
     <>
       <div className="App-container">
@@ -44,7 +42,7 @@ function App() {
         <input 
         onKeyDown={handleSearch}
         type="text"
-        autoFocus
+        autoFocus  // everything the page is refresh the cursor will be in the search bar
         />
        </div>
       </div>
@@ -54,8 +52,8 @@ function App() {
             <h1 className="city-name">{values.name}</h1>
 
             <p className="temp">{values.main.temp.toFixed(0)}&deg;</p>
-            <img className="icon" src={Icons(icon)} alt="icon-weather" />
-            {/* footer */}
+             <img className="icon" src={Icons(icon)} alt="icon-weather" /> 
+            
             <div className="card-footer">
               <p className="temp-max-min">{values.main.temp_min.toFixed(0)}&deg; | {values.main.temp_max.toFixed(0)}&deg;</p>
               </div>
@@ -67,7 +65,6 @@ function App() {
       
     </>
   );
-  }
+}        
 
-  export default App
-  
+export default App
