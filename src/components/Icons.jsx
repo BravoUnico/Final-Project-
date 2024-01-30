@@ -1,5 +1,5 @@
 
-const Icon = (icon) => {
+function Icon (icon) {
     switch (icon) {
         case 'Thunderstorm':
             icon='public/icons/thunderstorms.svg'
@@ -15,7 +15,7 @@ const Icon = (icon) => {
             break;
         case 'Haze':
             icon='public/icons/rain.svg'
-            console.log("haze");
+            console.log("haze");  
             break;
         case 'Fog':
             icon='public/icons/fog.svg'
@@ -36,9 +36,7 @@ const Icon = (icon) => {
     
     
     
-    return icon (
-        
-    );
+    return icon
 
 }
 

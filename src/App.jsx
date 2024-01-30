@@ -3,12 +3,12 @@ import { useEffect, useState } from "react"
 import Icons from './components/Icons.jsx'
 
 function App() {
- const [search, setSearch] = useState('')
+ const [search, setSearch] = useState('search')
  const [ values, setValues] = useState('')
  const [ icon, setIcon] = useState('')
  
 // fetching data from API
-  const URL = `https://api.openweathermap.org/data/2.5/weather?q=rome&lang=en&units=imperial&appid=d9efd9a630e65411cc199912a1fd62e4`
+  const URL = `https://api.openweathermap.org/data/2.5/weather?q=${search}&lang=en&units=imperial&appid=d9efd9a630e65411cc199912a1fd62e4`
   // const getData = async () => {
   //  const data = await axios.get(URL)
   const getData = async () => {
@@ -21,12 +21,16 @@ function App() {
           console.log(data.weather[0].main)
           setValues(data)
         }
+       
+      })
+       .catch(error =>{
+        console.log(error)
       })
     }
   const handleSearch = (e) =>{     // variable handleSearch will display the output of input instanly in devstool
     if(e.key ==='Enter') {
       console.log(e.target.value)
-      setSearch(e.target.values)
+      setSearch(e.target.value)
     }
    
   }
